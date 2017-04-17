@@ -5,12 +5,39 @@
 
 <head>
     <title>TEST</title>
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+    </script>
 </head>
 
 <body>
+
     <audio controls loop><source src="http://cdndl.zaycev.net/363777/4399562/Matthew+Koma_-_Kisses+Back+%28Original+Mix%29.mp3" type="audio/mpeg">В вашем браузере не поддерживается воспроизведение музыки</audio>
-    <form align="right"> Login:<input type="email" name="Login" /></form>
-    <form align="right">Password:<input type="password" name="Password" /></form>
+    <form align="center"><label>Поиск по нашему сайту: </label><input style="border:1px solid black; width:600px; heiht:30px" id="search" name="поисковик" type="search" placeholder="Введите свой запрос" /></form>
+    <form align="right">
+        <div>
+            <label> Login:</label>
+            <input id="user" type="email" name="Login" placeholder="example@example.com" />
+        </div>
+        <div>
+            <label>Password:</label>
+            <input id="password" type="password" name="Password" placeholder="Password" />
+        </div>
+        <div>
+            <input type="submit" name="Вход" value="Войти" /></div>
+    </form>
     <center><img src="http://www.scrapbooking-ukraine.com/img_catalog/4836.jpg" height="200" width="200" alt="Рецепты"></center>
     <header>
         <h1 align="center">Самые вкусные рецепты</h1>
@@ -54,13 +81,21 @@
     </article>
     <!--iframe width="560" height="315" src="https://www.youtube.com/embed/hJc9Fko0mf4" frameborder="0" allowfullscreen></iframe-->
     <aside>
-        <p>Мотивирующее видео!</p>
-        <video draggable="true" controls><source src="Skyrim.mp4" type="video/mp4">Не поддерживается</video>
+        <p align="center">Мотивирующее видео!</p>
+        <center><video controls><source src="Skyrim.mp4" type="video/mp4">Не поддерживается</video></center>
     </aside>
     <article>
         <aside>
             <p>Все необходимые продукты вы можете купить в нашем магазине, режим работы указан внизу сайта.</p>
         </aside>
+        <p align="center">Сложи продукты в корзину:</p>
+        <center>
+            <div id="box" ondrop="drop(event)" ondragover="allowDrop(event)" style="border:1px solid black; width:200px; height:195px"></div>
+        </center>
+        <center><img id="image1" src="carrot.jpg" draggable="true" ondragstart="drag(event)" width="200" height="65" alt="" />
+            <img id="image2" src="onion.jpg" draggable="true" ondragstart="drag(event)" width="200" height="65" alt="" />
+            <img id="image3" src="cheese.jpg" draggable="true" ondragstart="drag(event)" width="200" height="65" alt="" /></center>
+
         <p>Для вашего удобства на нашем сайте вы можете отмечать этапы приготовления супа:
             <progress min="0" max="100" value="66"></progress>
         </p>
@@ -73,9 +108,53 @@
         <p>Охлаждаем получившийся суп до комнатной температуры и переливаем его в блэндер. Перемалываем до состояния пюре,</p>
         <p>после чего разливаем по тарелкам и посыпаем сверху мелко-натертым твердым сыром</p>
     </article>
-    <p>Оставьте ваш отзыв о данном рецепте:</p>
-    <form method="POST" action="#"><input type="text" name="Отзыв" name="Напишите отзыв" /></form>
-    <form><input type="submit" name="Отправить" /></form>
+     <form method="POST" action="#">
+         <label><b>Оцените наш рецепт:</b></label>
+        <input id="Оценка" list="qc" placeholder="Выберите из списка" />
+            <datalist id="qc">
+                <option value="Отлично"></option>
+                <option value="Хорошо"></option>
+                <option value="Плохо"></option>
+            </datalist>
+    </form>
+    <form align="center" method="POST" action="#">
+        <label align="center"><b>Оставьте ваш отзыв о данном рецепте:</b></label>
+        <div>
+            <input style="border:1px solid black; width:400px; height:200px" type="text" name="Отзыв" name="Напишите отзыв" placeholder="Напишите ваш отзыв" required/>
+        </div>
+        <div>
+            <input type="submit" name="Отправить" />
+        </div>
+    </form>
+    <svg width="300" height="300">
+        <circle cx="150" cy="150" r="100" fill="green" />
+        <line x1="50" y1="150" x2="250" y2="150" style="stroke-linejoin:miter; stroke:black; stroke-width:12; fill: none;" />
+    </svg>
+    <canvas id="canvas2" width="250" height="300"></canvas>
+    <script>
+        var c = document.getElementById("canvas2");
+        var ctx = c.getContext("2d");
+        ctx.textAlign = "start";
+        ctx.fillText("start", 10, 30);
+        ctx.translate(100, 150);
+        ctx.fillText("after translate", 0, 0);
+        ctx.rotate(1);
+        ctx.fillText("after rotate", 0, 0);
+        ctx.scale(1.5, 4);
+        ctx.fillText("after scale", 0, 20);
+    </script>
+
+    <canvas id="canvas1" width="150" height="150"></canvas>
+
+    <script>
+        var c = document.getElementById("canvas1");
+        var ctx = c.getContext("2d");
+        ctx.fillStyle = "#FF0000";
+        ctx.fillRect(10, 10, 100, 100);
+        ctx.rotate((Math.PI / 180) * 29); //rotate 29 degrees.
+        ctx.fillStyle = "#0000FF";
+        ctx.fillRect(10, 10, 100, 100);
+    </script>
 
     <table border="2">
         <tr>
